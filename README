@@ -1,0 +1,29 @@
+Author : Lucie Rapp-Henry 
+Contact : lucie.rapp@univ-grenoble-alpes.fr
+
+This folder aims to help you compare two versions of parflow, running the same pfidb for different forcings.
+Of course you can run the same version, the same forcings or different pfidb, you'd just have to modify the code accordingly.
+
+Paths have been configured for this organisation of the folder. Therefore, it is recommanded to keep this organisation to simplify the process.
+
+Paths you firstly have to modify is :
+  - "proj_path" in comp_2vers.py and Run_Wank1D.py
+  - "os.environ['PARFLOW_DIR']" in Run_Wank1D.py to set the version you want to run.
+  - "vers" as yourID in a str form
+  - "simu_dirs" is a list of str simulation directory names 
+  
+Don't forget to specify in the simu definition line, what kind of sources you have compiled. This option corresponds to hom clm files are structured. 
+There are currently 2 available options : 'snow' or the default option (with surfalb)
+  - 'snow' corresponds to snow outputs and albedo outputs, cf LRH_src (Lucie Rapp-Henry version)
+  - the default option corresponds only to albedo outputs, cf MT_src  (Mahamadi Tabsoba version)
+Be careful, these options could not correspond to your clm output configuration, feel free to modify it in the simu.read_clm_outputs() function (line 181) in the fonctions_comp.py script.
+
+ The easiest way to proceed is to place your forcings in forcings/yourID/.
+ Then run Run_Wank1D.py
+ The results of your simulation wil be in simus/yourID/
+ You can then run comp_2vers.py
+ You will obtain 4 netcdf files, located in simus
+ You can then check if your netcf files are identical thanks to the cdo diffv command. Tadam !
+ Of course you can also plot some variables via python.
+ 
+ Hope this procedure could help, feel free to contact me for any question !

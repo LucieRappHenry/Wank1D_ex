@@ -1,0 +1,1 @@
+Temps de calcul via python : 0.2793638679999999
