@@ -18,7 +18,7 @@ There are currently 2 available options : 'snow' or the default option (with sur
   - the default option corresponds only to albedo outputs, cf MT_src  (Mahamadi Tabsoba version)
 Be careful, these options could not correspond to your clm output configuration, feel free to modify it in the simu.read_clm_outputs() function (line 181) in the fonctions_comp.py script.
 
- The easiest way to proceed is to place your forcings in forcings/yourID/.
+ The easiest way to proceed is to place your forcings in forcings/yourID/
  Then run Run_Wank1D.py
  The results of your simulation wil be in simus/yourID/
  You can then run comp_2vers.py
