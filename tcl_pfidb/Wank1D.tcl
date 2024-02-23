@@ -610,7 +610,6 @@ pfset Solver.CLM.WiltingPoint                           -150
 pfset Solver.CLM.FieldCapacity                          0.0
 pfset Solver.CLM.SoiLayer                                25  
 
-/home/rappl/PFTree/Lucie/parflow-dev_MT/
 
 #-----------------------------------------------------------------------------
 # Run and Unload the Parflow output files
