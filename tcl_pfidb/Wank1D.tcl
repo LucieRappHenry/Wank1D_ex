@@ -6,6 +6,11 @@ lappend auto_path $env(PARFLOW_DIR)/bin
 package require parflow
 namespace import Parflow::*
 
+set proj "/home/rappl/PROJETS/Wank1D_ex"
+set forc "${proj}/forcings/forc_MT"
+set simus "${proj}/simus"
+set tcl_pfidb "${proj}/tcl_pfidb"
+cd $simus
 
 #-----------------------------------------------------------------------------
 # File input version number
@@ -19,6 +24,35 @@ pfset Process.Topology.P        1
 pfset Process.Topology.Q        1
 pfset Process.Topology.R        1
 
+
+
+#-----------------------------------------------------------------------------
+# Results output
+#-----------------------------------------------------------------------------
+
+set simu "test_LRH"
+file delete -force $simu
+file mkdir $simu
+cd $simu
+
+#-----------------------------------------------------------------------------
+# Prepare input files
+#-----------------------------------------------------------------------------
+
+file copy ${tcl_pfidb}/Wank1D_ex.tcl ./Wank1D_ex.tcl
+
+###############################################################################
+
+file copy ${forc}/forc.txt ./forcagePF.txt.0
+file copy ${forc}/lai.dat ./lai.dat
+file copy ${forc}/drv_vegp.dat ./drv_vegp.dat
+file copy ${forc}/sai.dat ./sai.dat
+file copy ${forc}/z0m.dat ./z0m.dat
+file copy ${forc}/displa.dat  ./displa.dat
+file copy ${forc}/veg_map.pfb ./veg_map.pfb
+file copy ${forc}/drv_clmin.dat ./drv_clmin.dat
+file copy ${forc}/drv_vegm.dat ./drv_vegm.dat
+pfdist veg_map.pfb   
 #-----------------------------------------------------------------------------
 # Computational Grid
 #-----------------------------------------------------------------------------
@@ -34,6 +68,7 @@ pfset ComputationalGrid.DZ	               	1.0
 pfset ComputationalGrid.NX	     	       	1
 pfset ComputationalGrid.NY	     		1
 pfset ComputationalGrid.NZ                  	1
+
 pfset ComputationalGrid.NZ                  	30
 #-----------------------------------------------------------------------------
 # The Names of the GeomInputs
@@ -377,7 +412,6 @@ pfset Geom.H5.RelPerm.Alpha            5
 pfset Geom.H5.RelPerm.N                2
 
 
-
 #---------------------------------------------------------
 # Saturation
 #---------------------------------------------------------
@@ -388,81 +422,30 @@ pfset Phase.Saturation.GeomNames       "H1 H2 H3 H4 H5"
 
 ## Millet 
 
-#pfset Geom.H1.Saturation.Alpha         1.13
-pfset Geom.H1.Saturation.N             1.77
-#pfset Geom.H1.Saturation.SRes          0.05
-
 pfset Geom.H1.Saturation.Alpha         1.15
-#pfset Geom.H1.Saturation.N             1.54148 
+pfset Geom.H1.Saturation.N             1.77
 pfset Geom.H1.Saturation.SRes          0.028
 pfset Geom.H1.Saturation.SSat          0.9
 
 pfset Geom.H2.Saturation.Alpha        3.33
 pfset Geom.H2.Saturation.N            2
-#pfset Geom.H2.Saturation.SRes          0.027
-
-#pfset Geom.H2.Saturation.Alpha         1.5
-#pfset Geom.H2.Saturation.N             3
 pfset Geom.H2.Saturation.SRes          0.064
 pfset Geom.H2.Saturation.SSat          0.9
 
-#pfset Geom.H3.Saturation.Alpha        3.2139
-#pfset Geom.H3.Saturation.N            1.7934
-pfset Geom.H3.Saturation.SRes          0.13
-
 pfset Geom.H3.Saturation.Alpha        3.33
 pfset Geom.H3.Saturation.N            2
-#pfset Geom.H3.Saturation.SRes          0.08
+pfset Geom.H3.Saturation.SRes          0.13
 pfset Geom.H3.Saturation.SSat          0.9
 
 pfset Geom.H4.Saturation.Alpha         5
-#pfset Geom.H4.Saturation.N             3.27
-#pfset Geom.H4.Saturation.Alpha         3
 pfset Geom.H4.Saturation.N             2
-#pfset Geom.H4.Saturation.SRes          0.07
-
-#pfset Geom.H4.Saturation.Alpha        3.2139
-#pfset Geom.H4.Saturation.N            1.7934
 pfset Geom.H4.Saturation.SRes          0.13
 pfset Geom.H4.Saturation.SSat          0.9
-
-#pfset Geom.H5.Saturation.Alpha         4
-#pfset Geom.H5.Saturation.N             1.75
-#pfset Geom.H5.Saturation.Alpha        3.2139
-#pfset Geom.H5.Saturation.N            1.7934
-#pfset Geom.H5.Saturation.SRes          0.08
 
 pfset Geom.H5.Saturation.Alpha         5
 pfset Geom.H5.Saturation.N             2
 pfset Geom.H5.Saturation.SRes          0.16
 pfset Geom.H5.Saturation.SSat          0.9
-
-### Fallow
-
-#pfset Geom.H1.Saturation.Alpha         6
-#pfset Geom.H1.Saturation.N             2.75
-#pfset Geom.H1.Saturation.SRes          0.01
-#pfset Geom.H1.Saturation.SSat          0.9
-
-#pfset Geom.H2.Saturation.Alpha         5
-#pfset Geom.H2.Saturation.N             3
-#pfset Geom.H2.Saturation.SRes          0.012
-#pfset Geom.H2.Saturation.SSat          0.9
-
-#pfset Geom.H3.Saturation.Alpha         5
-#pfset Geom.H3.Saturation.N             3.1
-#pfset Geom.H3.Saturation.SRes          0.028
-#pfset Geom.H3.Saturation.SSat          0.9
-
-#pfset Geom.H4.Saturation.Alpha         4.5
-#pfset Geom.H4.Saturation.N             3
-#pfset Geom.H4.Saturation.SRes          0.027
-#pfset Geom.H4.Saturation.SSat          0.9
-
-#pfset Geom.H5.Saturation.Alpha         5
-#pfset Geom.H5.Saturation.N             3.3
-#pfset Geom.H5.Saturation.SRes          0.037
-#pfset Geom.H5.Saturation.SSat          0.9
 
 #-----------------------------------------------------------------------------
 # Phase sources:
@@ -487,7 +470,6 @@ pfset ICPressure.GeomNames                            "domain"
 pfset Geom.domain.ICPressure.RefGeom                  domain
 
 pfset Geom.domain.ICPressure.Value                    -10
-#pfset Geom.domain.ICPressure.Value                    -5
 pfset Geom.domain.ICPressure.RefPatch                 z-upper
 
 #-----------------------------------------------------------------------------
@@ -504,7 +486,7 @@ pfset Solver.PrintPressure                              True
 pfset Solver.PrintSaturation                            True
 pfset Solver.PrintMask                                  True
 pfset Solver.PrintSpecificStorage 		        True
-pfset Solver.PrintSlopes 		        True
+pfset Solver.PrintSlopes 		        	True
 
 
 #-----------------------------------------------------------------------------
@@ -544,7 +526,6 @@ pfset Cell.10.dzScale.Value                              0.083
 pfset Cell.11.dzScale.Value                              0.083
 pfset Cell.12.dzScale.Value                              0.083
 #H3 horizon 0.2 - 0.7
-#pfset Cell.10.dzScale.Value                              0.16
 pfset Cell.13.dzScale.Value                              0.083
 pfset Cell.14.dzScale.Value                              0.083
 pfset Cell.15.dzScale.Value                              0.083
@@ -577,16 +558,13 @@ pfset Solver.AbsTol                                      1E-8
 pfset Solver.Drop                                        1E-20
 pfset Solver.Nonlinear.MaxIter                           200 
 pfset Solver.Nonlinear.ResidualTol                       1e-9
-#pfset Solver.Nonlinear.ResidualTol                       1e-5
 pfset Solver.Nonlinear.StepTol                           1e-30
-#pfset Solver.Nonlinear.StepTol                           1e-7
 pfset Solver.Nonlinear.EtaChoice                         EtaConstant
 pfset Solver.Nonlinear.EtaValue                          0.001
 pfset Solver.Nonlinear.UseJacobian                       True
 pfset Solver.Nonlinear.DerivativeEpsilon                 1e-8
 pfset Solver.Nonlinear.Globalization                     LineSearch
 pfset Solver.Linear.KrylovDimension                      200
-#pfset Solver.Linear.KrylovDimension                      15
 pfset Solver.Linear.MaxRestart                           2
 pfset Solver.Linear.Preconditioner                       PFMG
 
@@ -613,7 +591,7 @@ pfset Solver.CLM.MetFilePath                             ./
 pfset Solver.CLM.CLMDumpInterval                         1
 
 pfset Solver.CLM.ForceVegetation			 True
-#pfset Solver.CLM.ForceVegetation			 False
+
 pfset Solver.CLM.RootZoneNZ				 25
 pfset Solver.CLM.BinaryOutDir				 False
 
@@ -632,24 +610,21 @@ pfset Solver.CLM.WiltingPoint                           -150
 pfset Solver.CLM.FieldCapacity                          0.0
 pfset Solver.CLM.SoiLayer                                25  
 
-
+/home/rappl/PFTree/Lucie/parflow-dev_MT/
 
 #-----------------------------------------------------------------------------
 # Run and Unload the Parflow output files
 #-----------------------------------------------------------------------------
  
-pfwritedb /home/rappl/PROJETS/Wank1D/tcl_pfidb/Wank1D
+pfwritedb /home/rappl/PROJETS/Wank1D_ex/tcl_pfidb/Wank1D_ex
 puts {before run OK}
-#set time_deb [clock seconds]
-#puts [time {
-#pfrun Wank1D
-#}]
-#set time_fin [clock seconds]
-#puts [expr $time_fin - $time_deb] 
-#puts {second}
-
-
+set time_deb [clock seconds]
+puts [time {
+pfrun Wank1D_ex
+}]
+set time_fin [clock seconds]
+puts [expr $time_fin - $time_deb] 
+puts {second}
 
 cd ..
-
 
